@@ -8,9 +8,12 @@ FRONTEND
 °login
 °Sobre nós
 °Histórico de pedidos
+°Carrinho
+°Tema de cores => inclusive colocar a mais que claro e escuro
 
 BACKEND
 
 °Arquivo de senhas
 °Login
 °Histórico de pedidos
+°Carrinho

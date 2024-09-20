@@ -1,0 +1,70 @@
+.back_color{
+    background-color: white;
+}
+
+.ram_image_background{
+    /* se a gente colocar mais produtos bora fazer isso mudar entre varias imagens */
+    background-image: url("images/placeholder.jpeg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: none;
+    height: 500px;
+}
+
+.font{
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.red_text{
+    color: red;
+}
+
+.main_text{
+    color: black;
+}
+
+.top_content_bar{
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    padding: 10px;
+    position: fixed;
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+}
+.top_content_bar > .top_content {
+    margin-right: 20px;
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    transition: color 0.3s ease;
+    &:hover{
+        color: rgb(255, 0, 0);
+    }
+}
+.top_content_bar > img{
+    margin-right: 10px ;
+}
+.main_content{
+    background-color: transparent;
+
+}
+.main_content > .left_bar{
+    flex-direction: row;
+}
+.main_content > .right_bar{
+    flex-direction: row-reverse;
+}
+
+
+.bottom_content_bar{
+    background-color: #ff0000;
+    color: rgb(0, 0, 0);
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+}
+

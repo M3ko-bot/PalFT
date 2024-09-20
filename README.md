@@ -10,6 +10,11 @@ FRONTEND
 °Histórico de pedidos
 °Carrinho
 °Tema de cores => inclusive colocar a mais que claro e escuro
+°Como comprar
+°Atendimento ao cliente
+
+
+
 
 BACKEND
 
@@ -17,3 +22,4 @@ BACKEND
 °Login
 °Histórico de pedidos
 °Carrinho
+°Atendimento ao cliente

@@ -2,14 +2,14 @@
     background-color: white;
 }
 
-.ram_image_background{
+/* .ram_image_background{ */
     /* se a gente colocar mais produtos bora fazer isso mudar entre varias imagens */
-    background-image: url("images/placeholder.jpeg");
+    /* background-image: url("images/placeholder.jpeg");
     background-size: cover;
     background-position: center;
     background-repeat: none;
-    height: 500px;
-}
+    height: 500px; */
+/* } */
 
 .font{
     font-family: Arial, Helvetica, sans-serif;
@@ -68,3 +68,34 @@
     justify-content: space-around;
 }
 
+/* já deixando pronto para colocar mais imagem */
+/* 
+*{box-sizing: border-box;}
+
+.slideshow{
+    max-width: 1000px;
+    position: static;
+    margin: auto;
+}
+
+.slides{
+    display: none;
+}
+
+.images{
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+}
+
+.fade{
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@keyframes fade{
+    from{opacity: .4;}
+    to{opacity: 1;}
+} */

@@ -1,15 +1,15 @@
 .back_color{
-    background-color: white;
+    background-color: rgb(23, 23, 23);
 }
 
-/* .ram_image_background{ */
+.ram_image_background{ 
     /* se a gente colocar mais produtos bora fazer isso mudar entre varias imagens */
-    /* background-image: url("images/placeholder.jpeg");
+    background-image: url("images/placeholder.jpeg");
     background-size: cover;
     background-position: center;
     background-repeat: none;
-    height: 500px; */
-/* } */
+    height: 500px; 
+}
 
 .font{
     font-family: Arial, Helvetica, sans-serif;
@@ -30,7 +30,7 @@
     position: fixed;
     display: flex;
     flex-wrap: nowrap;
-    width: 100%;
+    width: 95%;
 }
 .top_content_bar > .top_content {
     margin-right: 20px;
@@ -38,21 +38,43 @@
     color: rgb(0, 0, 0);
     transition: color 0.3s ease;
     &:hover{
-        color: rgb(255, 0, 0);
+        color: rgb(59, 122, 123);
     }
 }
 .top_content_bar > img{
     margin-right: 10px ;
 }
 .main_content{
-    background-color: transparent;
-
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    height: 150px;
+    flex-direction: column;
+    margin-right: 20px;
 }
 .main_content > .left_bar{
-    flex-direction: row;
+    background-color: #356362;
+    color: rgb(0, 0, 0);
+    padding: 10px;
+    
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+}
+.white_content{
+    background-color: rgb(255, 255, 255);
+    padding: 10px;
+    margin: 12px;
+    width: 80%;
+    color: rgb(0, 0, 0);
 }
 .main_content > .right_bar{
     flex-direction: row-reverse;
+}
+
+.main_content > .right_bar > div{
+    background-color: red;
+    padding: 10px;
+    margin: 12px;
 }
 
 
@@ -99,3 +121,20 @@
     from{opacity: .4;}
     to{opacity: 1;}
 } */
+
+.button{
+    background-color: rgb(76, 105, 145);
+    color: white;
+    padding: 15px 20px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    transition-duration: 0.4s;
+    width: fit-content;
+}
+
+.button:hover{
+    background-color: rgb(0, 0, 0);
+}

@@ -1,14 +1,6 @@
 .back_color{
-    background-color: rgb(23, 23, 23);
-}
-
-.ram_image_background{ 
-    /* se a gente colocar mais produtos bora fazer isso mudar entre varias imagens */
-    background-image: url("images/placeholder.jpeg");
-    background-size: cover;
-    background-position: center;
-    background-repeat: none;
-    height: 500px; 
+    /* background-color: rgb(53, 53, 53); */
+    background-image: linear-gradient(to right, black, rgb(69, 69, 69) ,black);
 }
 
 .font{
@@ -24,13 +16,15 @@
 }
 
 .top_content_bar{
-    background-color: #ffffff;
+    background-color: #5b5b5b;
     color: rgb(0, 0, 0);
     padding: 10px;
     position: fixed;
     display: flex;
     flex-wrap: nowrap;
-    width: 95%;
+    width: 100% ;
+    border-radius: 10px;
+    border: black 2px solid;
 }
 .top_content_bar > .top_content {
     margin-right: 20px;
@@ -45,11 +39,10 @@
     margin-right: 10px ;
 }
 .main_content{
-    background-color: rgb(255, 255, 255);
+    background-color: rgba(0, 0, 0, 0);
     display: flex;
-    height: 150px;
-    flex-direction: column;
-    margin-right: 20px;
+    /* height: 150px; */
+    flex-direction: column
 }
 .main_content > .left_bar{
     background-color: #356362;
@@ -137,4 +130,67 @@
 
 .button:hover{
     background-color: rgb(0, 0, 0);
+}
+
+.tema{
+    background-color: #000000;
+    border: none;
+    width: 16px;
+    margin-right: 20px ;
+    &:hover{
+        background-color: rgb(59, 122, 123);
+    }
+}
+.title{
+    color: rgb(0, 0, 0);
+    margin-right: 20px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: larger;
+}
+
+.intel{
+    display: flex;
+    background-color: rgba(4, 0, 255, 0.471);
+    height: 100px;
+    margin-top: 20px;
+    width: 500px;
+    margin-left: 30%;
+    border-radius: 10px;
+}
+
+.amd{
+    display: flex;
+    background-color: rgba(255, 94, 0, 0.471);
+    height: 100px;
+    margin-top: 20px;
+    width: 500px;
+    margin-left: 30%;
+    border-radius: 10px;
+}
+
+.white_text{
+    color: white;
+    font-size: 20px;
+    margin-left: 20px;
+    text-decoration: none;
+    align-self: center;
+}
+
+.img{
+    height: 100px;
+    width: 100px;
+    border-radius: 10px;
+}
+
+.round{
+    border-radius: 10px;
+}
+
+.end{
+    border-top: rgba(75, 140, 143, 0.547) solid;
+    background-color: black;
+    margin-top: 200px;
+    height: 500px;
+    text-align: center;
+    display: grid;
 }

@@ -6,6 +6,8 @@
 #ifndef PCLL_H
 #define PCLL_H
 
+#include <stdint.h>
+
 #define PCLL_OPENSSL  1
 #define PCLL_WOLFSSL  2
 #define PCLL_SCHANNEL 3
@@ -54,6 +56,9 @@ struct pcll_connection {
     char *decrypted;
     char incoming[TCPLIMITS_PACKET_SIZE];
     char *hostname;
+  #else
+    /* INFO: This is a dummy structure to avoid compilation errors */
+    uint8_t dummy;
   #endif
 };
 
@@ -67,6 +72,9 @@ struct pcll_server {
   #elif PCLL_SSL_LIBRARY == PCLL_SCHANNEL
     CtxtHandle *ssl;
     CredHandle *ctx;
+  #else
+    /* INFO: This is a dummy structure to avoid compilation errors */
+    uint8_t dummy;
   #endif
 };
 

@@ -22,7 +22,7 @@
     position: fixed;
     display: flex;
     flex-wrap: nowrap;
-    width: 100% ;
+    width: 97% ;
     border-radius: 10px;
     border: black 2px solid;
 }
@@ -124,7 +124,7 @@
     text-align: center;
     text-decoration: none;
     font-size: 16px;
-    transition-duration: 0.4s;
+    transition-duration: 1s;
     width: fit-content;
 }
 
@@ -168,6 +168,27 @@
     border-radius: 10px;
 }
 
+.nvidia{
+    display: flex;
+    background-color: rgba(0, 255, 17, 0.471);
+    height: 100px;
+    margin-top: 20px;
+    width: 500px;
+    margin-left: 30%;
+    border-radius: 10px;
+}
+
+.radeon{
+    display: flex;
+    background-color: rgba(255, 13, 0, 0.471);
+    height: 100px;
+    margin-top: 20px;
+    width: 500px;
+    margin-left: 30%;
+    border-radius: 10px;
+}
+
+
 .white_text{
     color: white;
     font-size: 20px;
@@ -175,6 +196,15 @@
     text-decoration: none;
     align-self: center;
 }
+
+.black_text{
+    color: rgb(0, 0, 0);
+    font-size: 80px;
+    margin-left: 40px;
+    text-decoration: none;
+    align-self: center;
+}
+
 
 .img{
     height: 100px;
@@ -187,10 +217,49 @@
 }
 
 .end{
-    border-top: rgba(75, 140, 143, 0.547) solid;
+    border: rgba(75, 140, 143, 0.547) solid;
     background-color: black;
     margin-top: 200px;
     height: 500px;
     text-align: center;
     display: grid;
+}
+
+.center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+
+.mais{
+    display: flex;
+    background-color: rgb(255, 255, 255);
+    height: 100px;
+    margin-top: 20px;
+    width: 500px;
+    margin-left: 30%;
+    border-radius: 10px;
+}
+
+.produtos{
+    display: flex;
+    background-color: rgb(0, 0, 0);
+    height: 100px;
+    margin-top: 200px;
+    width: 500px;
+    margin-left: 30%;
+    border-radius: 10px;
+    text-align: center;
+}
+.margin{
+    margin-left: 30%;
+}
+
+.about{
+    color: white;
+    &:hover{
+        color: rgb(59, 122, 123);
+    }
 }

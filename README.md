@@ -2,7 +2,7 @@ Lista de coisas para fazer
 
 # FRONTEND
 
-- Criar página inicial
+- Colocar JS na pagina inicial
 - Página de produtos
 - Produtos
 -login

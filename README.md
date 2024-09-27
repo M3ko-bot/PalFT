@@ -5,7 +5,6 @@ Lista de coisas para fazer
 - Colocar JS na pagina inicial
 - Página de produtos
 - Produtos
--login
 - Sobre nós (texto pronto)
 - Histórico de pedidos
 - Carrinho

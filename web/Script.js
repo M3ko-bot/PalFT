@@ -13,6 +13,29 @@ function showSlides() {
     setTimeout(showSlides, 2000);
 }
 
-function check() {
-    Options = document.getElementById("options")
-}
+
+function show1(){
+    document.getElementById('prod1').style.display ='block';
+    document.getElementById('prod2').style.display ='none';
+    document.getElementById('prod3').style.display ='none';
+    document.getElementById('prod4').style.display ='none';
+  }
+function show2(){
+    document.getElementById('prod1').style.display ='none';
+    document.getElementById('prod2').style.display ='block';
+    document.getElementById('prod3').style.display ='none';
+    document.getElementById('prod4').style.display ='none';
+  }
+
+  function show3(){
+    document.getElementById('prod1').style.display ='none';
+    document.getElementById('prod2').style.display ='none';
+    document.getElementById('prod3').style.display ='block';
+    document.getElementById('prod4').style.display ='none';
+  }
+function show4(){
+    document.getElementById('prod1').style.display ='none';
+    document.getElementById('prod2').style.display ='none';
+    document.getElementById('prod3').style.display ='none';
+    document.getElementById('prod4').style.display ='block';
+  }

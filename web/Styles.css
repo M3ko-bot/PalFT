@@ -413,7 +413,45 @@ option{
     color: white;
 }
 
+.product_area_content{
+    display: flex;
+    flex-direction: row;
+}
 
+.content1{
+    background-color: red;
+    height: 100px;
+    width: 100%;
+    display: none;
+}
+.content2{
+    background-color: blue;
+    height: 100px;
+    width: 100%;
+    display: none;
+}
+
+.content3{
+    background-color: green;
+    height: 100px;
+    width: 100%;
+    display: none;
+}
+
+.content4{
+    background-color: yellow;
+    height: 100px;
+    width: 100%;
+    display: none;
+}
+
+label{
+    color: white;
+    display: inline-block;
+}
+input[type="radio"]{
+    display: inline-block;
+}
 
 
 

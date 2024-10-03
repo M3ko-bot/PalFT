@@ -15,25 +15,41 @@ function showSlides() {
 
 
 function show1(){
+    document.getElementById('ch1').style.backgroundColor ='blue';
+    document.getElementById('ch2').style.backgroundColor ='white';
+    document.getElementById('ch3').style.backgroundColor ='white';
+    document.getElementById('ch4').style.backgroundColor ='white';
     document.getElementById('prod1').style.display ='block';
     document.getElementById('prod2').style.display ='none';
     document.getElementById('prod3').style.display ='none';
     document.getElementById('prod4').style.display ='none';
   }
 function show2(){
+    document.getElementById('ch1').style.backgroundColor ='white';
+    document.getElementById('ch2').style.backgroundColor ='blue';
+    document.getElementById('ch3').style.backgroundColor ='white';
+    document.getElementById('ch4').style.backgroundColor ='white';
     document.getElementById('prod1').style.display ='none';
-    document.getElementById('prod2').style.display ='block';
+    document.getElementsByClassName('fire').style.display ='block';
     document.getElementById('prod3').style.display ='none';
     document.getElementById('prod4').style.display ='none';
   }
 
   function show3(){
+    document.getElementById('ch1').style.backgroundColor ='white';
+    document.getElementById('ch2').style.backgroundColor ='white';
+    document.getElementById('ch3').style.backgroundColor ='blue';
+    document.getElementById('ch4').style.backgroundColor ='white';
     document.getElementById('prod1').style.display ='none';
     document.getElementById('prod2').style.display ='none';
     document.getElementById('prod3').style.display ='block';
     document.getElementById('prod4').style.display ='none';
   }
 function show4(){
+    document.getElementById('ch1').style.backgroundColor ='white';
+    document.getElementById('ch2').style.backgroundColor ='white';
+    document.getElementById('ch3').style.backgroundColor ='white';
+    document.getElementById('ch4').style.backgroundColor ='blue';
     document.getElementById('prod1').style.display ='none';
     document.getElementById('prod2').style.display ='none';
     document.getElementById('prod3').style.display ='none';

@@ -23,6 +23,7 @@ function show1(){
     document.getElementById('prod2').style.display ='none';
     document.getElementById('prod3').style.display ='none';
     document.getElementById('prod4').style.display ='none';
+    console.log("showing dragons")
   }
 function show2(){
     document.getElementById('ch1').style.backgroundColor ='white';
@@ -30,9 +31,10 @@ function show2(){
     document.getElementById('ch3').style.backgroundColor ='white';
     document.getElementById('ch4').style.backgroundColor ='white';
     document.getElementById('prod1').style.display ='none';
-    document.getElementsByClassName('fire').style.display ='block';
+    document.getElementById('prod2').style.display ='block';
     document.getElementById('prod3').style.display ='none';
     document.getElementById('prod4').style.display ='none';
+    console.log("showing fire")
   }
 
   function show3(){

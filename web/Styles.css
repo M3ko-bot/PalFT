@@ -148,47 +148,6 @@
     font-size: larger;
 }
 
-.intel{
-    display: flex;
-    background-color: rgba(4, 0, 255, 0.471);
-    height: 100px;
-    margin-top: 20px;
-    width: 500px;
-    margin-left: 30%;
-    border-radius: 10px;
-}
-
-.amd{
-    display: flex;
-    background-color: rgba(255, 94, 0, 0.471);
-    height: 100px;
-    margin-top: 20px;
-    width: 500px;
-    margin-left: 30%;
-    border-radius: 10px;
-}
-
-.nvidia{
-    display: flex;
-    background-color: rgba(0, 255, 17, 0.471);
-    height: 100px;
-    margin-top: 20px;
-    width: 500px;
-    margin-left: 30%;
-    border-radius: 10px;
-}
-
-.radeon{
-    display: flex;
-    background-color: rgba(255, 13, 0, 0.471);
-    height: 100px;
-    margin-top: 20px;
-    width: 500px;
-    margin-left: 30%;
-    border-radius: 10px;
-}
-
-
 .white_text{
     color: white;
     font-size: 20px;
@@ -423,7 +382,7 @@ option{
     background-color: rgb(69, 69, 69) ;
     height: 300px;
     width: 99%;
-    display: none;
+    display: block;
     margin-left: 10px;
     border-radius: 10px;
     border: #000000 3px solid;
@@ -444,6 +403,8 @@ input[type="radio"]{
     width: 10px;
 }
 
+
+
 #palft{
     height: 296px;
     width: 300px;
@@ -451,9 +412,37 @@ input[type="radio"]{
     border: white 2px solid;
 }
 
+#prod1, #prod2, #prod3, #prod4{
+    display: none;
+}
+
 .dragon{
-    background-image: linear-gradient( to right,rgb(0, 234, 255),rgb(127 243 253),rgb(0, 234, 255));
+    background-image: linear-gradient( to right,rgb(82, 0, 104),rgb(87, 0, 74),rgb(82, 0, 104));
 }
 .fire{
     background-image: linear-gradient( to right,rgb(255, 0, 0),rgb(253, 127, 127),rgb(255, 0, 0));
+}
+
+.grass{
+    background-image: linear-gradient( to right,rgb(127, 255, 0),rgb(127, 255, 127),rgb(127, 255, 0));
+}
+
+.neutral{
+    background-image: linear-gradient( to right,rgb(255, 217, 156),rgb(255, 255, 255),rgb(255, 217, 156));
+}
+
+.dark{
+    background-image:linear-gradient( to right,rgb(255, 0, 102),rgb(253, 127, 169),rgb(255, 0, 102)) ;
+}
+.eletric{
+    background-image: linear-gradient( to right,rgb(255, 255, 0),rgb(250, 255, 114),rgb(255, 255, 0));
+}
+.ground{
+    background-image: linear-gradient( to right,rgb(76, 33, 0),rgb(97, 75, 56),rgb(76, 33, 0));
+}
+.ice{
+    background-image: linear-gradient( to right,rgb(0, 238, 255),rgb(130, 243, 255),rgb(0, 238, 255));
+}
+.water{
+    background-image: linear-gradient( to right,rgb(0, 0, 255),rgb(0, 128, 255),rgb(0, 0, 255));
 }

@@ -1,0 +1,164 @@
+1- normal
+2- normal
+3- normal
+4- grass
+5- fire
+6- water
+7- eletric
+8- grass
+9- fire
+10
+11- water
+12- eletric
+12b- ice
+13- ground
+13b- ground
+14
+15- dark
+16- water
+17- dark
+18- normal
+19
+20- ground
+21- dark
+22- ground
+23- dark
+24- dark
+24b- ice
+25- water
+26- normal
+27- normal
+28- grass
+29- normal
+30- grass
+31- water
+31b- fire
+32- ground
+32b- ice
+33- grass
+33b- eletric
+34- normal
+35- grass
+36- normal
+37- normal
+37b- ground
+38-normal
+39-normal
+40-fire
+40b-dark
+41-grass
+42-fire
+43-ground
+44-dark
+45-dark
+45b-fire
+46-dark
+47-normal
+48-grass
+48b-ground
+49-normal
+49b-ground
+50-grass
+51
+52-normal
+53-ice
+54-ice
+55-ice
+55b-dragon
+56-eletric
+57-ice
+58
+58b-dark
+59-ice
+60-eletric
+61-fire
+62-eletric
+63-normal
+64-grass
+64b-eletric
+65-water
+65b-ground
+66-dark
+67-ground
+68-dark
+69-normal
+70-fire
+71
+71b-ice
+72- fire
+72-dark
+73-eletric
+74-fire
+75
+75b-fire
+76-fire
+76b-dark
+77-grass
+78-grass
+79-ice
+80-dragon
+80b-water
+81-water
+81b-fire
+82-water
+83-ice
+84-fire
+84b-dark
+85
+85b- eletric
+86-grass
+86b-water
+87-grass
+88-ground
+88b-ice
+89-normal
+89b-ice
+90-grass
+90b- ice
+91-ice
+91b-grass
+92-ground
+92b-ground
+93-normal
+94-dark
+95-dragon
+95b-grass
+96-fire
+97-dark
+97b-eletric
+98-dark
+99-dark
+99b-ground
+100
+101-dragon
+101b-fire
+102-fire
+102b-water
+103
+104-grass
+104b-dark
+105-fire
+106-dragon
+107-dark
+108-normal
+109-dark
+110-ice
+110b-dark
+111-dragon
+112-darkj
+112b-dark
+113-dark
+114-water
+115-grass
+116-grass
+116b-dark
+117-ground
+118-dark
+119-dark
+120-ground
+121-normal
+122-normal
+123-ground
+124-normaç
+125-dark
+126-dragon

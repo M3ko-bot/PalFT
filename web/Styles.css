@@ -497,3 +497,15 @@ input[type="radio"]{
     text-align: center;
     cursor: pointer;
 }
+
+.obrigado{
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 100px;
+    color: white;
+    padding: 10px;
+}
+
+.nozer{
+    margin-left: 42%;
+}

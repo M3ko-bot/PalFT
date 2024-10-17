@@ -24,4 +24,4 @@ Lista de coisas para fazer
 - Atendimento ao cliente
 
 
-https://prod.liveshare.vsengsaas.visualstudio.com/join?48B834DF6928491C4AACFE81A96AECAC153C
+https://prod.liveshare.vsengsaas.visualstudio.com/join?0F21A29F11DA7B2060B5C72DACC4FAA5BC80

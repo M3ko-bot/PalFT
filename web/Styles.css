@@ -1,21 +1,29 @@
-.back_color{
+/* Utilitarios começo */
+
+.div_central {
+    margin: auto !important;
+}
+
+.clicavel {
+    cursor: pointer;
+}
+
+.font {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.round {
+    border-radius: 10px;
+}
+
+/* Utilitarios fim */
+
+.back_color {
     /* background-color: rgb(53, 53, 53); */
     background-image: linear-gradient(to right, black, rgb(50, 50, 50) ,black);
 }
 
-.font{
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-.red_text{
-    color: red;
-}
-
-.main_text{
-    color: black;
-}
-
-.Pg_ini{
+.Pg_ini {
     display: flex;
     height: 30px;
     width: 150px;
@@ -41,7 +49,7 @@
     }
 }
 
-.top_content_bar{
+.top_content_bar {
     background-color: #5b5b5b;
     color: rgb(0, 0, 0);
     padding: 10px;
@@ -63,14 +71,9 @@
     }
 }
 
-.top_content_bar > img {
-    margin-right: 10px;
-}
-
 .main_content {
     background-color: rgba(0, 0, 0, 0);
     display: flex;
-    /* height: 150px; */
     flex-direction: column
 }
 
@@ -84,14 +87,6 @@
     width: 100%;
 }
 
-.white_content {
-    background-color: rgb(255, 255, 255);
-    padding: 10px;
-    margin: 12px;
-    width: 80%;
-    color: rgb(0, 0, 0);
-}
-
 .main_content > .right_bar {
     flex-direction: row-reverse;
 }
@@ -103,7 +98,7 @@
 }
 
 
-.bottom_content_bar{
+.bottom_content_bar {
     background-color: #ff0000;
     color: rgb(0, 0, 0);
     padding: 10px;
@@ -175,21 +170,21 @@
 }
 
 .title {
-    color: rgb(0, 0, 0);
+    color: black;
     margin-right: 20px;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     font-size: larger;
 }
 
-.white_text {
-    color: white;
+.text {
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 20px;
-    margin-left: 20px;
     text-decoration: none;
-    align-self: center;
+    text-align: center;
+    margin: auto;
 }
 
-.black_text {
+#text_palft {
     color: rgba(0, 0, 0, 0.3);
     font-size: 80px;
     margin-left: 40px;
@@ -197,14 +192,17 @@
     align-self: center;
 }
 
-
-.img {
-    height: 100px;
-    width: 100px;
-    border-radius: 10px;
+.white_text {
+    color: white;
 }
 
-.round {
+.black_text {
+    color: black;
+}
+
+.img_pequena {
+    height: 100px;
+    width: 100px;
     border-radius: 10px;
 }
 
@@ -223,7 +221,6 @@
     align-items: center;
     height: 100vh;
 }
-
 
 .mais {
     display: flex;
@@ -245,10 +242,6 @@
     margin-left: 30%;
     border-radius: 10px;
     text-align: center;
-}
-
-.margin {
-    margin-left: 30%;
 }
 
 .about {
@@ -372,7 +365,9 @@ h1 {
 
 }
 
-.product_background {
+/* produtos.html COMEÇO */
+
+#product_background {
     display: flex;
     flex-direction: row;
     background-color: transparent;
@@ -434,7 +429,7 @@ input[type="radio"] {
     margin-top: 5%;
 }
 
-#palft {
+.imagem_bixo {
     height: 296px;
     width: 300px;
     border-radius: 10px;
@@ -443,53 +438,6 @@ input[type="radio"] {
 
 .prods {
     display: none;
-}
-
-.dragon {
-    background-image: linear-gradient( to right,rgb(82, 0, 104),rgb(87, 0, 74),rgb(82, 0, 104));
-}
-
-.fire {
-    background-image: linear-gradient( to right,rgb(255, 0, 0),rgb(253, 127, 127),rgb(255, 0, 0));
-}
-
-.grass {
-    background-image: linear-gradient( to right,rgb(127, 255, 0),rgb(127, 255, 127),rgb(127, 255, 0));
-}
-
-.neutral {
-    background-image: linear-gradient( to right,rgb(255, 217, 156),rgb(255, 255, 255),rgb(255, 217, 156));
-}
-
-.dark {
-    background-image:linear-gradient( to right,rgb(255, 0, 102),rgb(253, 127, 169),rgb(255, 0, 102)) ;
-}
-
-.eletric {
-    background-image: linear-gradient( to right,rgb(255, 255, 0),rgb(250, 255, 114),rgb(255, 255, 0));
-}
-
-.ground {
-    background-image: linear-gradient( to right,rgb(76, 33, 0),rgb(97, 75, 56),rgb(76, 33, 0));
-}
-
-.ice {
-    background-image: linear-gradient( to right,rgb(0, 238, 255),rgb(130, 243, 255),rgb(0, 238, 255));
-}
-
-.water {
-    background-image: linear-gradient( to right,rgb(0, 0, 255),rgb(0, 128, 255),rgb(0, 0, 255));
-}
-
-.ainnobruapelaum {
-    display: flex;
-    background-color: rgb(0, 0, 0);
-    height: 100px;
-    margin-top: 200px;
-    width: 500px;
-    margin-left: 30%;
-    border-radius: 10px;
-    text-align: center;
 }
 
 .palname {
@@ -517,14 +465,15 @@ input[type="radio"] {
     cursor: pointer;
 }
 
-.obrigado {
+
+/* produtos.html FIM */
+
+/* obrigado.html COMEÇO */
+
+#obrigado {
     text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 100px;
-    color: white;
-    padding: 10px;
+    font-size: 7rem;
+    padding: 1%;
 }
 
-.nozer {
-    margin-left: 42%;
-}
+/* obrigado.html FIM */

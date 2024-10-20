@@ -59,11 +59,11 @@ function fetchProdutos() {
       /*                 
         <div class="prods">
           <div class="content">
-            <img src="images/fire/71.png" alt="" id="palft" class="fire">
+            <img src="images/fire/71.png" alt="" class="palft" class="fire">
             <button onclick="" class="pal_button">Comprar</button>
           </div>
           <div class="content">
-            <img src="images/fire/58.png" alt="" id="palft" class="fire">
+            <img src="images/fire/58.png" alt="" class="palft" class="fire">
             <button onclick="" class="pal_button">Comprar</button>
           </div>
         </div> 
@@ -82,7 +82,7 @@ function fetchProdutos() {
         const img = document.createElement('img')
         img.src = `images/${produto.tipo}/${produto.id}.png`
         img.alt = ''
-        img.id = 'palft'
+        img.classList.add('imagem_bixo')
         img.classList.add(produto.tipo)
 
         content.appendChild(img)

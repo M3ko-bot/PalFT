@@ -19,15 +19,14 @@ function showSlides() {
 }
 
 function showItem(number) {
-  const previous = localStorage.getItem('/state/item')
+  const chs = document.getElementsByClassName('chs')
+  const prods = document.getElementsByClassName('prods')
 
-  if (previous) setItemData(previous, true)
-  setItemData(number)
+  for (let i = 0; i < chs.length; i++) {
+    chs[i].style.backgroundColor = 'white'
+    prods[i].style.display = 'none'
+  }
 
-  localStorage.setItem('/state/item', number)
-}
-
-function setItemData(num, reverse) {
-  document.getElementById(`ch${num}`).style.backgroundColor = reverse ? 'white' : 'blue'
-  document.getElementById(`prod${num}`).style.display = reverse ? 'none' : 'block'
+  chs[number - 1].style.backgroundColor = 'blue'
+  prods[number - 1].style.display = 'block'
 }

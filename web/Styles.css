@@ -380,27 +380,19 @@ h1 {
     height: 1000px;
 }
 
-.product_area {
+#product_area {
     display: flex;
     flex-direction: column ;
     background-color: transparent;
     width: 100%;
 }
 
-.filter {
+#filter {
     display: flex;
     flex-direction: column ;
     background-color: rgba(49, 49, 49, 0.479);
     height: 100%;
     width: 300px;
-}
-
-#filter {
-    margin-top: 10px;
-    background-color: rgba(117, 117, 117, 0.514);
-    margin-left: 5px;
-    margin-right: 5px;
-    border-radius: 80px;
 }
 
 option {

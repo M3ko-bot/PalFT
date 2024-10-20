@@ -12,7 +12,7 @@
 
     <div class="product_background">
         <div class="filter">
-            <!-- filtro de produtos -->
+            <!-- INFO: filtro de produtos -->
             
             <select onchange="check()" id="filter">
                 <option>1</option>
@@ -25,7 +25,7 @@
         </div>
 
         <div class="product_area">
-            <!-- produtos vão aqui -->
+            <!-- INFO: produtos vão aqui -->
 
         </div>
 

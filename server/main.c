@@ -14,7 +14,7 @@
 #include "fq_utils.h"
 
 static struct httpserver server;
-static PGconn *conn;
+static char *conn_login = "user=postgres dbname=ramzen port=5432 host=localhost password=postgres";
 static struct tablec_ht sessions;
 
 #define SENHA "senha"
@@ -58,16 +58,46 @@ void callback(struct csocket_server_client *client, int socket_index, struct htt
     char sql_command[1024];
     snprintf(sql_command, sizeof(sql_command), "SELECT * FROM produtos;");
 
+    PGconn *conn = PQconnectdb(conn_login);
+    if (PQstatus(conn) != CONNECTION_OK) {
+      fprintf(stderr, "[main]: Erro ao conectar com o banco de dados: %s\n", PQerrorMessage(conn));
+      PQfinish(conn);
+
+      struct httpserver_response response = {
+        .client = client,
+        .status = 500,
+        .headers = (struct httpserver_header *) &(struct httpserver_header []) {
+          {
+            .key = "Access-Control-Allow-Origin",
+            .value = "*"
+          }
+        },
+        .headers_length = 1,
+        .body = NULL,
+        .body_length = 0
+      };
+
+      httpserver_send_response(&response);
+
+      return;
+    }
+
     PGresult *res = PQexec(conn, sql_command);
     if (PQresultStatus(res) != PGRES_TUPLES_OK) {
       fprintf(stderr, "[main]: Erro ao listar produtos: %s\n", PQerrorMessage(conn));
       PQclear(res);
+      PQfinish(conn);
 
       struct httpserver_response response = {
         .client = client,
         .status = 400,
-        .headers = NULL,
-        .headers_length = 0,
+        .headers = (struct httpserver_header *) &(struct httpserver_header []) {
+          {
+            .key = "Access-Control-Allow-Origin",
+            .value = "*"
+          }
+        },
+        .headers_length = 1,
         .body = NULL,
         .body_length = 0
       };
@@ -95,6 +125,7 @@ void callback(struct csocket_server_client *client, int socket_index, struct htt
     }
 
     PQclear(res);
+    PQfinish(conn);
 
     pjsonb_end(&array);
 
@@ -112,9 +143,13 @@ void callback(struct csocket_server_client *client, int socket_index, struct htt
         {
           .key = "Content-Length",
           .value = content_length_str
+        },
+        {
+          .key = "Access-Control-Allow-Origin",
+          .value = "*"
         }
       },
-      .headers_length = 2,
+      .headers_length = 3,
       .body = array.string,
       .body_length = array.position
     };
@@ -122,6 +157,8 @@ void callback(struct csocket_server_client *client, int socket_index, struct htt
     httpserver_send_response(&response);
 
     pjsonb_free(&array);
+
+    return;
 
 
   /* INFO: /api/register?name=UwU&email=exemplo@example.com&password=HASHED_SENHA */
@@ -135,8 +172,13 @@ void callback(struct csocket_server_client *client, int socket_index, struct htt
       struct httpserver_response response = {
         .client = client,
         .status = 400,
-        .headers = NULL,
-        .headers_length = 0,
+        .headers = (struct httpserver_header *) &(struct httpserver_header []) {
+          {
+            .key = "Access-Control-Allow-Origin",
+            .value = "*"
+          }
+        },
+        .headers_length = 1,
         .body = NULL,
         .body_length = 0
       };
@@ -157,16 +199,46 @@ void callback(struct csocket_server_client *client, int socket_index, struct htt
     char sql_command[4096];
     snprintf(sql_command, sizeof(sql_command), "INSERT INTO usuarios (nome, email, senha) VALUES ('%s', '%s', '%s');", name, email, password);
 
+    PGconn *conn = PQconnectdb(conn_login);
+    if (PQstatus(conn) != CONNECTION_OK) {
+      fprintf(stderr, "[main]: Erro ao conectar com o banco de dados: %s\n", PQerrorMessage(conn));
+      PQfinish(conn);
+
+      struct httpserver_response response = {
+        .client = client,
+        .status = 500,
+        .headers = (struct httpserver_header *) &(struct httpserver_header []) {
+          {
+            .key = "Access-Control-Allow-Origin",
+            .value = "*"
+          }
+        },
+        .headers_length = 1,
+        .body = NULL,
+        .body_length = 0
+      };
+
+      httpserver_send_response(&response);
+
+      return;
+    }
+
     PGresult *res = PQexec(conn, sql_command);
     if (PQresultStatus(res) != PGRES_COMMAND_OK) {
       fprintf(stderr, "[main]: Erro ao registrar: %s\n", PQerrorMessage(conn));
       PQclear(res);
+      PQfinish(conn);
 
       struct httpserver_response response = {
         .client = client,
         .status = 400,
-        .headers = NULL,
-        .headers_length = 0,
+        .headers = (struct httpserver_header *) &(struct httpserver_header []) {
+          {
+            .key = "Access-Control-Allow-Origin",
+            .value = "*"
+          }
+        },
+        .headers_length = 1,
         .body = NULL,
         .body_length = 0
       };
@@ -177,12 +249,18 @@ void callback(struct csocket_server_client *client, int socket_index, struct htt
     }
 
     PQclear(res);
+    PQfinish(conn);
 
     struct httpserver_response response = {
       .client = client,
       .status = 204,
-      .headers = NULL,
-      .headers_length = 0,
+      .headers = (struct httpserver_header *) &(struct httpserver_header []) {
+        {
+          .key = "Access-Control-Allow-Origin",
+          .value = "*"
+        }
+      },
+      .headers_length = 1,
       .body = NULL,
       .body_length = 0
     };
@@ -202,8 +280,13 @@ void callback(struct csocket_server_client *client, int socket_index, struct htt
       struct httpserver_response response = {
         .client = client,
         .status = 400,
-        .headers = NULL,
-        .headers_length = 0,
+        .headers = (struct httpserver_header *) &(struct httpserver_header []) {
+          {
+            .key = "Access-Control-Allow-Origin",
+            .value = "*"
+          }
+        },
+        .headers_length = 1,
         .body = NULL,
         .body_length = 0
       };
@@ -222,16 +305,46 @@ void callback(struct csocket_server_client *client, int socket_index, struct htt
     char sql_command[(1024 * 2) + 68 + 1];
     snprintf(sql_command, sizeof(sql_command), "SELECT * FROM usuarios WHERE email='%s' AND senha='%s';", email, password);
 
+    PGconn *conn = PQconnectdb(conn_login);
+    if (PQstatus(conn) != CONNECTION_OK) {
+      fprintf(stderr, "[main]: Erro ao conectar com o banco de dados: %s\n", PQerrorMessage(conn));
+      PQfinish(conn);
+
+      struct httpserver_response response = {
+        .client = client,
+        .status = 500,
+        .headers = (struct httpserver_header *) &(struct httpserver_header []) {
+          {
+            .key = "Access-Control-Allow-Origin",
+            .value = "*"
+          }
+        },
+        .headers_length = 1,
+        .body = NULL,
+        .body_length = 0
+      };
+
+      httpserver_send_response(&response);
+
+      return;
+    }
+
     PGresult *res = PQexec(conn, sql_command);
     if (PQresultStatus(res) != PGRES_TUPLES_OK) {
       fprintf(stderr, "[main]: Erro ao logar: %s\n", PQerrorMessage(conn));
       PQclear(res);
+      PQfinish(conn);
 
       struct httpserver_response response = {
         .client = client,
         .status = 400,
-        .headers = NULL,
-        .headers_length = 0,
+        .headers = (struct httpserver_header *) &(struct httpserver_header []) {
+          {
+            .key = "Access-Control-Allow-Origin",
+            .value = "*"
+          }
+        },
+        .headers_length = 1,
         .body = NULL,
         .body_length = 0
       };
@@ -243,12 +356,18 @@ void callback(struct csocket_server_client *client, int socket_index, struct htt
 
     if (PQntuples(res) == 0) {
       PQclear(res);
+      PQfinish(conn);
 
       struct httpserver_response response = {
         .client = client,
         .status = 403,
-        .headers = NULL,
-        .headers_length = 0,
+        .headers = (struct httpserver_header *) &(struct httpserver_header []) {
+          {
+            .key = "Access-Control-Allow-Origin",
+            .value = "*"
+          }
+        },
+        .headers_length = 1,
         .body = NULL,
         .body_length = 0
       };
@@ -267,6 +386,7 @@ void callback(struct csocket_server_client *client, int socket_index, struct htt
     tablec_set(&sessions, session, time_str);
 
     PQclear(res);
+    PQfinish(conn);
 
     struct httpserver_response response = {
       .client = client,
@@ -279,9 +399,13 @@ void callback(struct csocket_server_client *client, int socket_index, struct htt
         {
           .key = "Content-Length",
           .value = "32"
+        },
+        {
+          .key = "Access-Control-Allow-Origin",
+          .value = "*"
         }
       },
-      .headers_length = 2,
+      .headers_length = 3,
       .body = session,
       .body_length = 32
     };
@@ -303,8 +427,13 @@ void callback(struct csocket_server_client *client, int socket_index, struct htt
       struct httpserver_response response = {
         .client = client,
         .status = 400,
-        .headers = NULL,
-        .headers_length = 0,
+        .headers = (struct httpserver_header *) &(struct httpserver_header []) {
+          {
+            .key = "Access-Control-Allow-Origin",
+            .value = "*"
+          }
+        },
+        .headers_length = 1,
         .body = NULL,
         .body_length = 0
       };
@@ -318,8 +447,13 @@ void callback(struct csocket_server_client *client, int socket_index, struct htt
       struct httpserver_response response = {
         .client = client,
         .status = 403,
-        .headers = NULL,
-        .headers_length = 0,
+        .headers = (struct httpserver_header *) &(struct httpserver_header []) {
+          {
+            .key = "Access-Control-Allow-Origin",
+            .value = "*"
+          }
+        },
+        .headers_length = 1,
         .body = NULL,
         .body_length = 0
       };
@@ -336,8 +470,13 @@ void callback(struct csocket_server_client *client, int socket_index, struct htt
       struct httpserver_response response = {
         .client = client,
         .status = 400,
-        .headers = NULL,
-        .headers_length = 0,
+        .headers = (struct httpserver_header *) &(struct httpserver_header []) {
+          {
+            .key = "Access-Control-Allow-Origin",
+            .value = "*"
+          }
+        },
+        .headers_length = 1,
         .body = NULL,
         .body_length = 0
       };
@@ -354,16 +493,46 @@ void callback(struct csocket_server_client *client, int socket_index, struct htt
     char sql_command[(1024 * 2) + 68 + (sizeof(int) * 3) + 1];
     snprintf(sql_command, sizeof(sql_command), "INSERT INTO produtos (nome, imagem, preco) VALUES ('%s', '%s', %d);", nome, imagem, preco);
 
+    PGconn *conn = PQconnectdb(conn_login);
+    if (PQstatus(conn) != CONNECTION_OK) {
+      fprintf(stderr, "[main]: Erro ao conectar com o banco de dados: %s\n", PQerrorMessage(conn));
+      PQfinish(conn);
+
+      struct httpserver_response response = {
+        .client = client,
+        .status = 500,
+        .headers = (struct httpserver_header *) &(struct httpserver_header []) {
+          {
+            .key = "Access-Control-Allow-Origin",
+            .value = "*"
+          }
+        },
+        .headers_length = 1,
+        .body = NULL,
+        .body_length = 0
+      };
+
+      httpserver_send_response(&response);
+
+      return;
+    }
+
     PGresult *res = PQexec(conn, sql_command);
     if (PQresultStatus(res) != PGRES_COMMAND_OK) {
       fprintf(stderr, "[main]: Erro ao adicionar produto: %s\n", PQerrorMessage(conn));
       PQclear(res);
+      PQfinish(conn);
 
       struct httpserver_response response = {
         .client = client,
         .status = 400,
-        .headers = NULL,
-        .headers_length = 0,
+        .headers = (struct httpserver_header *) &(struct httpserver_header []) {
+          {
+            .key = "Access-Control-Allow-Origin",
+            .value = "*"
+          }
+        },
+        .headers_length = 1,
         .body = NULL,
         .body_length = 0
       };
@@ -374,12 +543,18 @@ void callback(struct csocket_server_client *client, int socket_index, struct htt
     }
 
     PQclear(res);
+    PQfinish(conn);
 
     struct httpserver_response response = {
       .client = client,
       .status = 204,
-      .headers = NULL,
-      .headers_length = 0,
+      .headers = (struct httpserver_header *) &(struct httpserver_header []) {
+        {
+          .key = "Access-Control-Allow-Origin",
+          .value = "*"
+        }
+      },
+      .headers_length = 1,
       .body = NULL,
       .body_length = 0
     };
@@ -396,8 +571,13 @@ void callback(struct csocket_server_client *client, int socket_index, struct htt
       struct httpserver_response response = {
         .client = client,
         .status = 400,
-        .headers = NULL,
-        .headers_length = 0,
+        .headers = (struct httpserver_header *) &(struct httpserver_header []) {
+          {
+            .key = "Access-Control-Allow-Origin",
+            .value = "*"
+          }
+        },
+        .headers_length = 1,
         .body = NULL,
         .body_length = 0
       };
@@ -411,8 +591,13 @@ void callback(struct csocket_server_client *client, int socket_index, struct htt
       struct httpserver_response response = {
         .client = client,
         .status = 403,
-        .headers = NULL,
-        .headers_length = 0,
+        .headers = (struct httpserver_header *) &(struct httpserver_header []) {
+          {
+            .key = "Access-Control-Allow-Origin",
+            .value = "*"
+          }
+        },
+        .headers_length = 1,
         .body = NULL,
         .body_length = 0
       };
@@ -430,16 +615,46 @@ void callback(struct csocket_server_client *client, int socket_index, struct htt
     char sql_command[1024 + 33 + 1];
     snprintf(sql_command, sizeof(sql_command), "DELETE from produtos WHERE='%s';", nome);
 
+    PGconn *conn = PQconnectdb(conn_login);
+    if (PQstatus(conn) != CONNECTION_OK) {
+      fprintf(stderr, "[main]: Erro ao conectar com o banco de dados: %s\n", PQerrorMessage(conn));
+      PQfinish(conn);
+
+      struct httpserver_response response = {
+        .client = client,
+        .status = 500,
+        .headers = (struct httpserver_header *) &(struct httpserver_header []) {
+          {
+            .key = "Access-Control-Allow-Origin",
+            .value = "*"
+          }
+        },
+        .headers_length = 1,
+        .body = NULL,
+        .body_length = 0
+      };
+
+      httpserver_send_response(&response);
+
+      return;
+    }
+
     PGresult *res = PQexec(conn, sql_command);
     if (PQresultStatus(res) != PGRES_COMMAND_OK) {
       fprintf(stderr, "[main]: Erro ao deletar produto: %s\n", PQerrorMessage(conn));
       PQclear(res);
+      PQfinish(conn);
 
       struct httpserver_response response = {
         .client = client,
         .status = 400,
-        .headers = NULL,
-        .headers_length = 0,
+        .headers = (struct httpserver_header *) &(struct httpserver_header []) {
+          {
+            .key = "Access-Control-Allow-Origin",
+            .value = "*"
+          }
+        },
+        .headers_length = 1,
         .body = NULL,
         .body_length = 0
       };
@@ -450,11 +665,17 @@ void callback(struct csocket_server_client *client, int socket_index, struct htt
     }
 
     PQclear(res);
+    PQfinish(conn);
 
     struct httpserver_response response = {
       .client = client,
       .status = 204,
-      .headers = NULL,
+      .headers = (struct httpserver_header *) &(struct httpserver_header []) {
+        {
+          .key = "Access-Control-Allow-Origin",
+          .value = "*"
+        }
+      },
       .headers_length = 0,
       .body = NULL,
       .body_length = 0
@@ -474,8 +695,13 @@ void callback(struct csocket_server_client *client, int socket_index, struct htt
       struct httpserver_response response = {
         .client = client,
         .status = 400,
-        .headers = NULL,
-        .headers_length = 0,
+        .headers = (struct httpserver_header *) &(struct httpserver_header []) {
+          {
+            .key = "Access-Control-Allow-Origin",
+            .value = "*"
+          }
+        },
+        .headers_length = 1,
         .body = NULL,
         .body_length = 0
       };
@@ -497,8 +723,13 @@ void callback(struct csocket_server_client *client, int socket_index, struct htt
       struct httpserver_response response = {
         .client = client,
         .status = 403,
-        .headers = NULL,
-        .headers_length = 0,
+        .headers = (struct httpserver_header *) &(struct httpserver_header []) {
+          {
+            .key = "Access-Control-Allow-Origin",
+            .value = "*"
+          }
+        },
+        .headers_length = 1,
         .body = NULL,
         .body_length = 0
       };
@@ -511,16 +742,46 @@ void callback(struct csocket_server_client *client, int socket_index, struct htt
     char sql_command[2048];
     snprintf(sql_command, sizeof(sql_command), "INSERT INTO carrinho (usuario, produto) VALUES ('%s', '%s');", session_info->key, produto);
 
+    PGconn *conn = PQconnectdb(conn_login);
+    if (PQstatus(conn) != CONNECTION_OK) {
+      fprintf(stderr, "[main]: Erro ao conectar com o banco de dados: %s\n", PQerrorMessage(conn));
+      PQfinish(conn);
+
+      struct httpserver_response response = {
+        .client = client,
+        .status = 500,
+        .headers = (struct httpserver_header *) &(struct httpserver_header []) {
+          {
+            .key = "Access-Control-Allow-Origin",
+            .value = "*"
+          }
+        },
+        .headers_length = 1,
+        .body = NULL,
+        .body_length = 0
+      };
+
+      httpserver_send_response(&response);
+
+      return;
+    }
+
     PGresult *res = PQexec(conn, sql_command);
     if (PQresultStatus(res) != PGRES_COMMAND_OK) {
       fprintf(stderr, "[main]: Erro ao adicionar produto ao carrinho: %s\n", PQerrorMessage(conn));
       PQclear(res);
+      PQfinish(conn);
 
       struct httpserver_response response = {
         .client = client,
         .status = 400,
-        .headers = NULL,
-        .headers_length = 0,
+        .headers = (struct httpserver_header *) &(struct httpserver_header []) {
+          {
+            .key = "Access-Control-Allow-Origin",
+            .value = "*"
+          }
+        },
+        .headers_length = 1,
         .body = NULL,
         .body_length = 0
       };
@@ -531,12 +792,18 @@ void callback(struct csocket_server_client *client, int socket_index, struct htt
     }
 
     PQclear(res);
+    PQfinish(conn);
 
     struct httpserver_response response = {
       .client = client,
       .status = 204,
-      .headers = NULL,
-      .headers_length = 0,
+      .headers = (struct httpserver_header *) &(struct httpserver_header []) {
+        {
+          .key = "Access-Control-Allow-Origin",
+          .value = "*"
+        }
+      },
+      .headers_length = 1,
       .body = NULL,
       .body_length = 0
     };
@@ -555,8 +822,13 @@ void callback(struct csocket_server_client *client, int socket_index, struct htt
       struct httpserver_response response = {
         .client = client,
         .status = 400,
-        .headers = NULL,
-        .headers_length = 0,
+        .headers = (struct httpserver_header *) &(struct httpserver_header []) {
+          {
+            .key = "Access-Control-Allow-Origin",
+            .value = "*"
+          }
+        },
+        .headers_length = 1,
         .body = NULL,
         .body_length = 0
       };
@@ -578,8 +850,13 @@ void callback(struct csocket_server_client *client, int socket_index, struct htt
       struct httpserver_response response = {
         .client = client,
         .status = 403,
-        .headers = NULL,
-        .headers_length = 0,
+        .headers = (struct httpserver_header *) &(struct httpserver_header []) {
+          {
+            .key = "Access-Control-Allow-Origin",
+            .value = "*"
+          }
+        },
+        .headers_length = 1,
         .body = NULL,
         .body_length = 0
       };
@@ -592,16 +869,46 @@ void callback(struct csocket_server_client *client, int socket_index, struct htt
     char sql_command[2048];
     snprintf(sql_command, sizeof(sql_command), "DELETE from carrinho WHERE usuario='%s' AND produto='%s';", session_info->key, produto);
 
+    PGconn *conn = PQconnectdb(conn_login);
+    if (PQstatus(conn) != CONNECTION_OK) {
+      fprintf(stderr, "[main]: Erro ao conectar com o banco de dados: %s\n", PQerrorMessage(conn));
+      PQfinish(conn);
+
+      struct httpserver_response response = {
+        .client = client,
+        .status = 500,
+        .headers = (struct httpserver_header *) &(struct httpserver_header []) {
+          {
+            .key = "Access-Control-Allow-Origin",
+            .value = "*"
+          }
+        },
+        .headers_length = 1,
+        .body = NULL,
+        .body_length = 0
+      };
+
+      httpserver_send_response(&response);
+
+      return;
+    }
+
     PGresult *res = PQexec(conn, sql_command);
     if (PQresultStatus(res) != PGRES_COMMAND_OK) {
       fprintf(stderr, "[main]: Erro ao deletar produto do carrinho: %s\n", PQerrorMessage(conn));
       PQclear(res);
+      PQfinish(conn);
 
       struct httpserver_response response = {
         .client = client,
         .status = 400,
-        .headers = NULL,
-        .headers_length = 0,
+        .headers = (struct httpserver_header *) &(struct httpserver_header []) {
+          {
+            .key = "Access-Control-Allow-Origin",
+            .value = "*"
+          }
+        },
+        .headers_length = 1,
         .body = NULL,
         .body_length = 0
       };
@@ -612,12 +919,18 @@ void callback(struct csocket_server_client *client, int socket_index, struct htt
     }
 
     PQclear(res);
+    PQfinish(conn);
 
     struct httpserver_response response = {
       .client = client,
       .status = 204,
-      .headers = NULL,
-      .headers_length = 0,
+      .headers = (struct httpserver_header *) &(struct httpserver_header []) {
+        {
+          .key = "Access-Control-Allow-Origin",
+          .value = "*"
+        }
+      },
+      .headers_length = 1,
       .body = NULL,
       .body_length = 0
     };
@@ -639,8 +952,13 @@ void callback(struct csocket_server_client *client, int socket_index, struct htt
       struct httpserver_response response = {
         .client = client,
         .status = 403,
-        .headers = NULL,
-        .headers_length = 0,
+        .headers = (struct httpserver_header *) &(struct httpserver_header []) {
+          {
+            .key = "Access-Control-Allow-Origin",
+            .value = "*"
+          }
+        },
+        .headers_length = 1,
         .body = NULL,
         .body_length = 0
       };
@@ -653,16 +971,46 @@ void callback(struct csocket_server_client *client, int socket_index, struct htt
     char sql_command[1024 + 33 + 1];
     snprintf(sql_command, sizeof(sql_command), "SELECT * FROM carrinho WHERE usuario='%s';", session_info->key);
 
+    PGconn *conn = PQconnectdb(conn_login);
+    if (PQstatus(conn) != CONNECTION_OK) {
+      fprintf(stderr, "[main]: Erro ao conectar com o banco de dados: %s\n", PQerrorMessage(conn));
+      PQfinish(conn);
+
+      struct httpserver_response response = {
+        .client = client,
+        .status = 500,
+        .headers = (struct httpserver_header *) &(struct httpserver_header []) {
+          {
+            .key = "Access-Control-Allow-Origin",
+            .value = "*"
+          }
+        },
+        .headers_length = 1,
+        .body = NULL,
+        .body_length = 0
+      };
+
+      httpserver_send_response(&response);
+
+      return;
+    }
+
     PGresult *res = PQexec(conn, sql_command);
     if (PQresultStatus(res) != PGRES_TUPLES_OK) {
       fprintf(stderr, "[main]: Erro ao listar carrinho: %s\n", PQerrorMessage(conn));
       PQclear(res);
+      PQfinish(conn);
 
       struct httpserver_response response = {
         .client = client,
         .status = 400,
-        .headers = NULL,
-        .headers_length = 0,
+        .headers = (struct httpserver_header *) &(struct httpserver_header []) {
+          {
+            .key = "Access-Control-Allow-Origin",
+            .value = "*"
+          }
+        },
+        .headers_length = 1,
         .body = NULL,
         .body_length = 0
       };
@@ -686,6 +1034,7 @@ void callback(struct csocket_server_client *client, int socket_index, struct htt
     }
 
     PQclear(res);
+    PQfinish(conn);
 
     pjsonb_end(&array);
 
@@ -703,9 +1052,13 @@ void callback(struct csocket_server_client *client, int socket_index, struct htt
         {
           .key = "Content-Length",
           .value = content_length_str
+        },
+        {
+          .key = "Access-Control-Allow-Origin",
+          .value = "*"
         }
       },
-      .headers_length = 2,
+      .headers_length = 3,
       .body = array.string,
       .body_length = array.position
     };
@@ -733,9 +1086,13 @@ void callback(struct csocket_server_client *client, int socket_index, struct htt
       {
         .key = "Content-Length",
         .value = resp_len
+      },
+      {
+        .key = "Access-Control-Allow-Origin",
+        .value = "*"
       }
     },
-    .headers_length = 2,
+    .headers_length = 3,
     .body = resp,
     .body_length = strlen(resp)
   };
@@ -765,10 +1122,6 @@ void handle_sig_int(int signal) {
 
   httpserver_stop_server(&server);
 
-  printf("[main]: Desconectando do banco de dados...\n");
-
-  PQfinish(conn);
-
   printf("[main]: Pronto! Tchau.\n");
 }
 
@@ -784,7 +1137,7 @@ int main(void) {
 
   printf("[main]: Tabela de sessões criada\n");
 
-  conn = PQconnectdb("user=postgres dbname=ramzen port=5432 host=localhost password=postgres");
+  PGconn *conn = PQconnectdb("user=postgres dbname=ramzen port=5432 host=localhost password=postgres");
   if (PQstatus(conn) != CONNECTION_OK) {
     fprintf(stderr, "[main]: Erro ao conectar com o banco de dados: %s\n", PQerrorMessage(conn));
     PQfinish(conn);
@@ -831,6 +1184,7 @@ int main(void) {
     return 1;
   }
   PQclear(res);
+  PQfinish(conn);
 
   printf("[main]: Tabela carrinho criada\n");
 

@@ -1,14 +1,16 @@
 function showItem(number) {
-  const chs = document.getElementsByClassName('chs')
-  const prods = document.getElementsByClassName('prods')
+  const dataTag = document.getElementById('cache-click-state')
+  const current = dataTag.getAttribute('content')
 
-  for (let i = 0; i < chs.length; i++) {
-    chs[i].style.backgroundColor = 'white'
-    prods[i].style.display = 'none'
+  if (current?.length !== 0) {
+    document.getElementById(`ch${current}`).style.backgroundColor = 'white'
+    document.getElementById(`prod${current}`).style.display = 'none'
   }
 
-  chs[number - 1].style.backgroundColor = 'blue'
-  prods[number - 1].style.display = 'block'
+  document.getElementById(`ch${number}`).style.backgroundColor = 'blue'
+  document.getElementById(`prod${number}`).style.display = 'block'
+
+  dataTag.setAttribute('content', number)
 }
 
 function fetchProdutos() {

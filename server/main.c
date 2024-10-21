@@ -114,9 +114,11 @@ void callback(struct csocket_server_client *client, int socket_index, struct htt
       pjsonb_enter_object(&array, NULL);
 
       char *nome = PQgetvalue(res, i, 0);
-      char *imagem = PQgetvalue(res, i, 1);
+      char *tipo = PQgetvalue(res, i, 1);
+      char *imagem = PQgetvalue(res, i, 2);
 
       pjsonb_set_string(&array, "nome", nome, strlen(nome));
+      pjsonb_set_string(&array, "tipo", tipo, strlen(tipo));
       pjsonb_set_string(&array, "imagem", imagem, strlen(imagem));
       pjsonb_set_int(&array, "preco", atoi(PQgetvalue(res, i, 2)));
       pjsonb_set_int(&array, "avaliacao", 5);
@@ -418,12 +420,14 @@ void callback(struct csocket_server_client *client, int socket_index, struct htt
   } else if (strncmp(request->path, "/api/session/check", sizeof("/api/session/check") - 1) == 0) {
     printf("[main]: Checando sessão\n");
 
-  /* INFO: /api/produtos/add?nome=...&imagem=...&preco=...&senha=... */
+  /* INFO: /api/produtos/add?nome=...&tipo=...&imagem=...&preco=...&senha=... */
   /* INFO: (resposta): 204 ou 400 ou 403 (status code) */
   } else if (strncmp(request->path, "/api/produtos/add", sizeof("/api/produtos/add") - 1) == 0) {
     printf("[main]: Adicionando produto\n");
   
-    if (qparser_get_query(&parse_info, "nome") == NULL || qparser_get_query(&parse_info, "imagem") == NULL || qparser_get_query(&parse_info, "preco") == NULL) {
+    if (qparser_get_query(&parse_info, "nome") == NULL || qparser_get_query(&parse_info, "tipo") == NULL || qparser_get_query(&parse_info, "imagem") == NULL || qparser_get_query(&parse_info, "preco") == NULL) {
+      printf("[main]: Erro ao adicionar produto: campos faltando\n");
+
       struct httpserver_response response = {
         .client = client,
         .status = 400,
@@ -444,6 +448,8 @@ void callback(struct csocket_server_client *client, int socket_index, struct htt
     }
 
     if (qparser_get_query(&parse_info, "senha") == NULL || strcmp(qparser_get_query(&parse_info, "senha")->value, SENHA) != 0) {
+      printf("[main]: Erro ao adicionar produto: senha incorreta\n");
+
       struct httpserver_response response = {
         .client = client,
         .status = 403,
@@ -464,6 +470,7 @@ void callback(struct csocket_server_client *client, int socket_index, struct htt
     }
 
     char *nome = qparser_get_query(&parse_info, "nome")->value;
+    char *tipo = qparser_get_query(&parse_info, "tipo")->value;
     char *imagem = qparser_get_query(&parse_info, "imagem")->value;
     int preco = atoi(qparser_get_query(&parse_info, "preco")->value);
     if (preco == 0) {
@@ -488,10 +495,11 @@ void callback(struct csocket_server_client *client, int socket_index, struct htt
 
     normalize_string(nome);
     normalize_query_value(nome);
+    normalize_string(tipo);
     normalize_string(imagem);
 
-    char sql_command[(1024 * 2) + 68 + (sizeof(int) * 3) + 1];
-    snprintf(sql_command, sizeof(sql_command), "INSERT INTO produtos (nome, imagem, preco) VALUES ('%s', '%s', %d);", nome, imagem, preco);
+    char sql_command[(1024 * 3) + 68 + (sizeof(int) * 3) + 1];
+    snprintf(sql_command, sizeof(sql_command), "INSERT INTO produtos (nome, tipo, imagem, preco) VALUES ('%s', '%s', '%s', %d);", nome, tipo, imagem, preco);
 
     PGconn *conn = PQconnectdb(conn_login);
     if (PQstatus(conn) != CONNECTION_OK) {
@@ -1151,7 +1159,7 @@ int main(void) {
   PQsetNoticeProcessor(conn, libpq_notice_processor, NULL);
 
   /* INFO: Cria a área de produtos na database */
-  PGresult *res = PQexec(conn, "CREATE TABLE IF NOT EXISTS produtos (nome TEXT NOT NULL, imagem TEXT NOT NULL, preco INT NOT NULL);");
+  PGresult *res = PQexec(conn, "CREATE TABLE IF NOT EXISTS produtos (nome TEXT NOT NULL, tipo TEXT NOT NULL, imagem TEXT NOT NULL, preco INT NOT NULL);");
   if (PQresultStatus(res) != PGRES_COMMAND_OK) {
     fprintf(stderr, "[main]: Erro ao criar a tabela produtos: %s\n", PQerrorMessage(conn));
     PQclear(res);

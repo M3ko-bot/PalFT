@@ -1,210 +1,107 @@
-let slideIndex = 0
-showSlides();
+function showItem(number) {
+  const dataTag = document.getElementById('cache-click-state')
+  const current = dataTag.getAttribute('content')
 
-function showSlides() {
-    let i;
-    let slides = document.getElementsByClassName("slide");
-    for (i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
-    }
-    slideIndex++;
-    if (slideIndex > slides.length) { slideIndex = 1 }
-    slides[slideIndex - 1].style.display = "block";
-    setTimeout(showSlides, 2000);
+  if (current?.length !== 0) {
+    document.getElementById(`ch${current}`).style.backgroundColor = 'white'
+    document.getElementById(`prod${current}`).style.display = 'none'
+  }
+
+  document.getElementById(`ch${number}`).style.backgroundColor = 'blue'
+  document.getElementById(`prod${number}`).style.display = 'block'
+
+  dataTag.setAttribute('content', number)
 }
 
+function fetchProdutos() {
+  fetch('http://localhost:8888/api/produtos/lista').then((response) => response.json()).then((data) => {
+    /* INFO: Cria uma lista de produtos */
+    const ul = document.createElement('ul');
+    document.body.appendChild(ul);
 
-function show1(){
-    document.getElementById('ch1').style.backgroundColor ='blue';
-    document.getElementById('ch2').style.backgroundColor ='white';
-    document.getElementById('ch3').style.backgroundColor ='white';
-    document.getElementById('ch4').style.backgroundColor ='white';
-    document.getElementById('ch5').style.backgroundColor ='white';
-    document.getElementById('ch6').style.backgroundColor ='white';
-    document.getElementById('ch7').style.backgroundColor ='white';
-    document.getElementById('ch8').style.backgroundColor ='white';
-    document.getElementById('ch9').style.backgroundColor ='white';
-    document.getElementById('prod1').style.display ='block';
-    document.getElementById('prod2').style.display ='none';
-    document.getElementById('prod3').style.display ='none';
-    document.getElementById('prod4').style.display ='none';
-    document.getElementById('prod5').style.display ='none';
-    document.getElementById('prod6').style.display ='none';
-    document.getElementById('prod7').style.display ='none';
-    document.getElementById('prod8').style.display ='none';
-    document.getElementById('prod9').style.display ='none';
-    console.log("showing dragons")
-  }
-function show2(){
-  document.getElementById('ch1').style.backgroundColor ='white';
-  document.getElementById('ch2').style.backgroundColor ='blue';
-  document.getElementById('ch3').style.backgroundColor ='white';
-  document.getElementById('ch4').style.backgroundColor ='white';
-  document.getElementById('ch5').style.backgroundColor ='white';
-  document.getElementById('ch6').style.backgroundColor ='white';
-  document.getElementById('ch7').style.backgroundColor ='white';
-  document.getElementById('ch8').style.backgroundColor ='white';
-  document.getElementById('ch9').style.backgroundColor ='white';
-  document.getElementById('prod1').style.display ='none';
-  document.getElementById('prod2').style.display ='block';
-  document.getElementById('prod3').style.display ='none';
-  document.getElementById('prod4').style.display ='none';
-  document.getElementById('prod5').style.display ='none';
-  document.getElementById('prod6').style.display ='none';
-  document.getElementById('prod7').style.display ='none';
-  document.getElementById('prod8').style.display ='none';
-  document.getElementById('prod9').style.display ='none';
-    console.log("showing fire")
-  }
+    const tipos = {}
+    data.forEach((produto) => {
+      /* INFO: Cria um item de lista para cada produto */
+      if (!tipos[produto.tipo]) tipos[produto.tipo] = []
 
-  function show3(){
-    document.getElementById('ch1').style.backgroundColor ='white';
-    document.getElementById('ch2').style.backgroundColor ='white';
-    document.getElementById('ch3').style.backgroundColor ='blue';
-    document.getElementById('ch4').style.backgroundColor ='white';
-    document.getElementById('ch5').style.backgroundColor ='white';
-    document.getElementById('ch6').style.backgroundColor ='white';
-    document.getElementById('ch7').style.backgroundColor ='white';
-    document.getElementById('ch8').style.backgroundColor ='white';
-    document.getElementById('ch9').style.backgroundColor ='white';
-    document.getElementById('prod1').style.display ='none';
-    document.getElementById('prod2').style.display ='none';
-    document.getElementById('prod3').style.display ='block';
-    document.getElementById('prod4').style.display ='none';
-    document.getElementById('prod5').style.display ='none';
-    document.getElementById('prod6').style.display ='none';
-    document.getElementById('prod7').style.display ='none';
-    document.getElementById('prod8').style.display ='none';
-    document.getElementById('prod9').style.display ='none';
-    console.log("showing grass")
-  }
-function show4(){
-  document.getElementById('ch1').style.backgroundColor ='white';
-    document.getElementById('ch2').style.backgroundColor ='white';
-        document.getElementById('ch3').style.backgroundColor ='white';
-              document.getElementById('ch4').style.backgroundColor ='blue';
-                        document.getElementById('ch5').style.backgroundColor ='white';
-                                        document.getElementById('ch6').style.backgroundColor ='white';
-                                                                  document.getElementById('ch7').style.backgroundColor ='white';
-                                                                                                            document.getElementById('ch8').style.backgroundColor ='white';
-                                                                                                                                                                                document.getElementById('ch9').style.backgroundColor ='white';
-                                                                                                                                                                                document.getElementById('prod1').style.display ='none';
-                                                                                                            document.getElementById('prod2').style.display ='none';
-                                                                  document.getElementById('prod3').style.display ='none';
-                                        document.getElementById('prod4').style.display ='block';
-                        document.getElementById('prod5').style.display ='none';
-              document.getElementById('prod6').style.display ='none';
-        document.getElementById('prod7').style.display ='none';
-    document.getElementById('prod8').style.display ='none';
-  document.getElementById('prod9').style.display ='none';
-  console.log("showing neutral")
-  }
-  function show5(){
-    document.getElementById('ch1').style.backgroundColor ='white';
-    document.getElementById('ch2').style.backgroundColor ='white';
-    document.getElementById('ch3').style.backgroundColor ='white';
-    document.getElementById('ch4').style.backgroundColor ='white';
-    document.getElementById('ch5').style.backgroundColor ='blue';
-    document.getElementById('ch6').style.backgroundColor ='white';
-    document.getElementById('ch7').style.backgroundColor ='white';
-    document.getElementById('ch8').style.backgroundColor ='white';
-    document.getElementById('ch9').style.backgroundColor ='white';
-    document.getElementById('prod1').style.display ='none';
-    document.getElementById('prod2').style.display ='none';
-    document.getElementById('prod3').style.display ='none';
-    document.getElementById('prod4').style.display ='none';
-    document.getElementById('prod5').style.display ='block';
-    document.getElementById('prod6').style.display ='none';
-    document.getElementById('prod7').style.display ='none';
-    document.getElementById('prod8').style.display ='none';
-    document.getElementById('prod9').style.display ='none';
-    console.log("showing eletric")
-  }
+      tipos[produto.tipo].push(produto)
+    })
 
-  function show6(){
-    document.getElementById('ch1').style.backgroundColor ='white';
-    document.getElementById('ch2').style.backgroundColor ='white';
-    document.getElementById('ch3').style.backgroundColor ='white';
-    document.getElementById('ch4').style.backgroundColor ='white';
-    document.getElementById('ch5').style.backgroundColor ='white';
-    document.getElementById('ch6').style.backgroundColor ='blue';
-    document.getElementById('ch7').style.backgroundColor ='white';
-    document.getElementById('ch8').style.backgroundColor ='white';
-    document.getElementById('ch9').style.backgroundColor ='white';
-    document.getElementById('prod1').style.display ='none';
-    document.getElementById('prod2').style.display ='none';
-    document.getElementById('prod3').style.display ='none';
-    document.getElementById('prod4').style.display ='none';
-    document.getElementById('prod5').style.display ='none';
-    document.getElementById('prod6').style.display ='block';
-    document.getElementById('prod7').style.display ='none';
-    document.getElementById('prod8').style.display ='none';
-    document.getElementById('prod9').style.display ='none';
-    console.log("showing ground")
-  }
+    const filter = document.getElementById('filter')
+    Object.keys(tipos).forEach((tipo, index) => {
+      /*
+        <label for="ch1" class="tipo_palft">
+          <input type="radio" name="tab" id="ch1" class="chs" onclick="showItem(1)">
+          Dragon
+        </label>
+      */
+      const ch = document.createElement('label')
+      ch.htmlFor = `ch${index}`
+      ch.classList.add('tipo_palft')
 
-  function show7(){
-    document.getElementById('ch1').style.backgroundColor ='white';
-    document.getElementById('ch2').style.backgroundColor ='white';
-    document.getElementById('ch3').style.backgroundColor ='white';
-    document.getElementById('ch4').style.backgroundColor ='white';
-    document.getElementById('ch5').style.backgroundColor ='white';
-    document.getElementById('ch6').style.backgroundColor ='white';
-    document.getElementById('ch7').style.backgroundColor ='blue';
-    document.getElementById('ch8').style.backgroundColor ='white';
-    document.getElementById('ch9').style.backgroundColor ='white';
-    document.getElementById('prod1').style.display ='none';
-    document.getElementById('prod2').style.display ='none';
-    document.getElementById('prod3').style.display ='none';
-    document.getElementById('prod4').style.display ='none';
-    document.getElementById('prod5').style.display ='none';
-    document.getElementById('prod6').style.display ='none';
-    document.getElementById('prod7').style.display ='block';
-    document.getElementById('prod8').style.display ='none';
-    document.getElementById('prod9').style.display ='none';
-    console.log("showing ice")
-  }
+      filter.appendChild(ch)
 
-  function show8(){
-    document.getElementById('ch1').style.backgroundColor ='white';
-    document.getElementById('ch2').style.backgroundColor ='white';
-    document.getElementById('ch3').style.backgroundColor ='white';
-    document.getElementById('ch4').style.backgroundColor ='white';
-    document.getElementById('ch5').style.backgroundColor ='white';
-    document.getElementById('ch6').style.backgroundColor ='white';
-    document.getElementById('ch7').style.backgroundColor ='white';
-    document.getElementById('ch8').style.backgroundColor ='blue';
-    document.getElementById('ch9').style.backgroundColor ='white';
-    document.getElementById('prod1').style.display ='none';
-    document.getElementById('prod2').style.display ='none';
-    document.getElementById('prod3').style.display ='none';
-    document.getElementById('prod4').style.display ='none';
-    document.getElementById('prod5').style.display ='none';
-    document.getElementById('prod6').style.display ='none';
-    document.getElementById('prod7').style.display ='none';
-    document.getElementById('prod8').style.display ='block';
-    document.getElementById('prod9').style.display ='none';
-    console.log("showing dark")
-  }
-  
-  function show9(){
-    document.getElementById('ch1').style.backgroundColor ='white';
-    document.getElementById('ch2').style.backgroundColor ='white';
-    document.getElementById('ch3').style.backgroundColor ='white';
-    document.getElementById('ch4').style.backgroundColor ='white';
-    document.getElementById('ch5').style.backgroundColor ='white';
-    document.getElementById('ch6').style.backgroundColor ='white';
-    document.getElementById('ch7').style.backgroundColor ='white';
-    document.getElementById('ch8').style.backgroundColor ='white';
-    document.getElementById('ch9').style.backgroundColor ='blue';
-    document.getElementById('prod1').style.display ='none';
-    document.getElementById('prod2').style.display ='none';
-    document.getElementById('prod3').style.display ='none';
-    document.getElementById('prod4').style.display ='none';
-    document.getElementById('prod5').style.display ='none';
-    document.getElementById('prod6').style.display ='none';
-    document.getElementById('prod7').style.display ='none';
-    document.getElementById('prod8').style.display ='none';
-    document.getElementById('prod9').style.display ='block';
-    console.log("showing water")
-  }
+      const input = document.createElement('input')
+      input.type = 'radio'
+      input.name = 'tab'
+      input.id = `ch${index}`
+      input.classList.add('chs')
+      input.onclick = () => showItem(index + 1)
+
+      ch.appendChild(input)
+
+      const tipoCapitalized = tipo.charAt(0).toUpperCase() + tipo.slice(1)
+
+      const text = document.createTextNode(tipoCapitalized)
+      ch.appendChild(text)
+    })
+
+    const product_area = document.getElementById('product_area')
+    Object.keys(tipos).forEach((tipo) => {
+      /*                 
+        <div class="prods">
+          <div class="content">
+            <img src="images/fire/71.png" alt="" class="palft" class="fire">
+            <button onclick="" class="pal_button">Comprar</button>
+          </div>
+          <div class="content">
+            <img src="images/fire/58.png" alt="" class="palft" class="fire">
+            <button onclick="" class="pal_button">Comprar</button>
+          </div>
+        </div> 
+      */
+      const prods = document.createElement('div')
+      prods.classList.add('prods')
+
+      product_area.appendChild(prods)
+
+      tipos[tipo].forEach((produto) => {
+        const content = document.createElement('div')
+        content.classList.add('content')
+
+        prods.appendChild(content)
+
+        const img = document.createElement('img')
+        img.src = `images/${produto.tipo}/${produto.id}.png`
+        img.alt = ''
+        img.classList.add('imagem_bixo')
+        img.classList.add(produto.tipo)
+
+        content.appendChild(img)
+
+        const button = document.createElement('button')
+        button.onclick = () => {
+          /* TODO: Adicionar produto ao carrinho */
+        }
+        button.classList.add('pal_button')
+
+        const text = document.createTextNode('Comprar')
+        button.appendChild(text)
+
+        content.appendChild(button)
+      })
+    })
+  })
+}
+
+fetchProdutos()

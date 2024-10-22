@@ -11,4 +11,3 @@ Lista de coisas para fazer
 - Login
 
 
-https://prod.liveshare.vsengsaas.visualstudio.com/join?0F21A29F11DA7B2060B5C72DACC4FAA5BC80

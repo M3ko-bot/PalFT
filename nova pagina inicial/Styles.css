@@ -1,0 +1,55 @@
+#starter{
+    height: 96.5vh;
+    background-color: rgba(255, 0, 0, 0.267);
+    color: white;
+    position: relative;
+    display: flex;
+    z-index: 0;
+    margin-top: 0px;
+}
+
+#body{
+    background-color: rgb(33, 0, 54);
+}
+
+#textarea{
+    background-color: rgb(255, 0, 0);
+    height: 50vh;
+    margin-top: 20px;
+    position: sticky;
+    z-index: 2;
+}
+
+#text{
+    color: white;
+    font-size: 20px;
+    height: auto;
+    width: auto;
+    padding: 5px;
+}
+
+.image{
+    width: 90%;
+    height: 100%;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    display: inline-block;
+    margin-left: 10%;
+}
+#the_sender{
+    background-color: rgb(255, 0, 0);
+    color: white;
+    height: 100%;
+    width: 10%;
+    position: absolute;
+    z-index: 2;
+    display: inline-block;
+    margin-right: 0px;
+    margin-top: 0px;
+}
+
+.to_buy{
+    height: 50px;
+    width: 50px;
+}

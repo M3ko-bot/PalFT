@@ -1,0 +1,557 @@
+/* Utilitarios começo */
+
+.div_central {
+    margin: auto !important;
+}
+
+.clicavel {
+    cursor: pointer;
+}
+
+.font {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.round {
+    border-radius: 10px;
+}
+
+/* Utilitarios fim */
+
+.back_color {
+    /* background-color: rgb(53, 53, 53); */
+    background-image: linear-gradient(to right, black, rgb(50, 50, 50) ,black);
+}
+
+.Pg_ini {
+    display: flex;
+    height: 30px;
+    width: 150px;
+
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+
+    background-color: rgb(0, 0, 0);
+
+    border: black solid 1px;
+    border-radius: 90px;
+
+    margin-left: 40px;
+    margin-top: 5%;
+
+    transition: 0.5s ease;
+    &:hover{
+        background-color: #00000000;
+        color: #ffffff;   
+    }
+}
+
+.top_content_bar {
+    background-color: #5b5b5b;
+    color: rgb(0, 0, 0);
+    padding: 10px;
+    position: fixed;
+    display: flex;
+    flex-wrap: nowrap;
+    width: 97% ;
+    border-radius: 10px;
+    border: black 2px solid;
+}
+
+.top_content_bar > .top_content {
+    margin-right: 20px;
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    transition: color 0.3s ease;
+    &:hover{
+        color: rgb(59, 122, 123);
+    }
+}
+
+.main_content {
+    background-color: rgba(0, 0, 0, 0);
+    display: flex;
+    flex-direction: column
+}
+
+.main_content > .left_bar {
+    background-color: #356362;
+    color: rgb(0, 0, 0);
+    padding: 10px;
+    
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+}
+
+.main_content > .right_bar {
+    flex-direction: row-reverse;
+}
+
+.main_content > .right_bar > div {
+    background-color: red;
+    padding: 10px;
+    margin: 12px;
+}
+
+
+.bottom_content_bar {
+    background-color: #ff0000;
+    color: rgb(0, 0, 0);
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+}
+
+/* já deixando pronto para colocar mais imagem */
+/* 
+*{box-sizing: border-box;}
+
+.slideshow{
+    max-width: 1000px;
+    position: static;
+    margin: auto;
+}
+
+.slides{
+    display: none;
+}
+
+.images{
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+}
+
+.fade{
+    animation-name: fade;
+    animation-duration: 1.5s;
+}
+
+@keyframes fade{
+    from{opacity: .4;}
+    to{opacity: 1;}
+} */
+
+/* input[type=submit] {
+    background-color: rgb(76, 105, 145);
+    color: white;
+    padding: 15px 20px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    transition-duration: 1s;
+    width: fit-content;
+} */
+
+.button:hover {
+    background-color: rgb(0, 0, 0);
+}
+
+.tema {
+    background-color: #000000;
+    border: none;
+    width: 16px;
+    margin-right: 20px ;
+    &:hover{
+        background-color: rgb(59, 122, 123);
+    }
+}
+
+.title {
+    color: black;
+    margin-right: 20px;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: larger;
+}
+
+.text {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 20px;
+    text-decoration: none;
+    text-align: center;
+    margin: auto;
+}
+
+#text_palft {
+    color: rgba(0, 0, 0, 0.3);
+    font-size: 80px;
+    margin-left: 40px;
+    text-decoration: none;
+    align-self: center;
+}
+
+.white_text {
+    color: white;
+}
+
+.black_text {
+    color: black;
+}
+
+.img_pequena {
+    height: 100px;
+    width: 100px;
+    border-radius: 10px;
+}
+
+.end {
+    border: rgba(75, 140, 143, 0.547) solid;
+    background-color: black;
+    margin-top: 200px;
+    height: 500px;
+    text-align: center;
+    display: grid;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.mais {
+    display: flex;
+    background-color: rgba(255, 255, 255, 0);
+    height: 100px;
+    margin-top: 20px;
+    width: 500px;
+    margin-left: 30%;
+    border-radius: 10px;
+    
+}
+
+.produtos {
+    display: flex;
+    background-color: rgb(0, 0, 0);
+    height: 100px;
+    margin-top: 200px;
+    width: 500px;
+    margin-left: 30%;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.about {
+    color: white;
+    &:hover{
+        color: rgb(59, 122, 123);
+    }
+}
+
+.main_content_login {
+    background-color: rgba(0, 0, 0, 0);
+    display: grid;
+    flex-direction: column;
+}
+
+.login {
+    background-color: rgba(0, 0, 0, 0.479);
+    height: 80%;
+    width: 50%;
+    border-radius: 10px;
+    border: #ffffff 2px solid;
+    display: flex;
+    flex-direction: column;
+}
+
+.margin2 {
+    margin-left: 25%;
+    margin-top: 10%;
+}
+
+.login_title {
+    color: whitesmoke;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+}
+
+.login_img {
+    align-self: center;
+    border-radius: 10px;
+    border: transparent 1px solid;
+}
+
+#inputLogin {
+    width: 70%; 
+}
+
+input[type=text], input[type=password], input[type=email], input[type=submit] {
+    margin-top: 30px;
+    background-color: transparent;
+    border: #ffffff 2px solid;
+    border-radius: 80px;
+    height: 30px;
+    width: 70%; 
+    align-self: center;
+    color: #ffffff;
+    text-align: center;
+    
+}
+
+input[type=submit] {
+    align-self: center;
+    background-color: #ffffff;
+    border: transparent 1px solid;
+    border-radius: 80px;
+    width: 90%;
+    height: 8%;
+    margin-top: 5%;
+}
+
+::placeholder {
+    color:gray;
+}
+
+.register {
+    color: #ffffff;
+    align-self: center;
+    text-decoration: none;
+    margin-top: 1%;
+    margin-bottom: 5%;
+}
+
+#cadastro {
+    background-color: hsla(0, 0%, 0%, 0.3);
+    border-radius: 10px;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    margin-top: 10%;
+    border: #ffffff 2px solid;
+    margin-bottom: 10%;
+}
+
+h1 {
+    text-align: center;
+    color: #ffffff;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.cadastro {
+    background-color: rgb(255, 255, 255) !important;
+    color: #000000 !important;
+    border-radius: 5px !important;
+    margin-bottom: 1% !important;
+}
+
+#cadastroSubmit {
+    all: unset;
+    margin-bottom: 7.5%!important;
+    margin-top: 5%!important;
+    background-color: transparent;
+    border: #ffffff 2px solid;
+    border-radius: 80px;
+    height: 30px;
+    width: 70%; 
+    align-self: center;
+    color:gray;
+    text-align: center;
+
+}
+
+/* produtos.html COMEÇO */
+
+#product_background {
+    display: flex;
+    flex-direction: row;
+    background-color: transparent;
+    width: 100%;
+    height: 1000px;
+}
+
+#product_area {
+    display: flex;
+    flex-direction: column ;
+    background-color: transparent;
+    width: 100%;
+}
+
+#filter {
+    display: flex;
+    flex-direction: column ;
+    background-color: rgba(49, 49, 49, 0.479);
+    height: 100%;
+    width: 300px;
+}
+
+option {
+    background-color: rgba(0, 0, 0, 0.514);
+    color: white;
+}
+
+.product_area_content {
+    display: flex;
+    flex-direction: row;
+}
+
+.content {
+    background-color: rgb(69, 69, 69);
+    height: 300px;
+    width: 99%;
+    display: flex;
+    margin-left: 10px;
+    border-radius: 10px;
+    border: #000000 3px solid;
+    color:white;
+    font-size: 50px;
+}
+
+.tipo_palft {
+    color: white;
+    display: inline-block;
+}
+
+input[type="radio"] {
+    appearance: none;
+    height: 20px;
+    width: 20px;
+    display: inline-block;
+    background-color: white;
+    border: #000000 1px solid;
+    border-radius: 20px;
+    vertical-align: sub;
+    margin-top: 5%;
+}
+
+.imagem_bixo {
+    height: 296px;
+    width: 300px;
+    border-radius: 10px;
+    border: white 2px solid;
+}
+
+.prods {
+    display: none;
+}
+
+.palname {
+    color: white;
+    font-size: 100px;
+    text-align: center;
+    padding-top: 30px;
+    height: 300px;
+}
+
+.pal_button {
+    height: 50px;
+    width: 150px;
+
+    align-self: center;
+    margin-left: auto;
+    margin-right: 10%;
+
+    border: none;
+    border-radius: 50px;
+
+    color: white;
+    background-color: rgb(0, 0, 0);
+
+    cursor: pointer;
+}
+
+
+/* produtos.html FIM */
+
+/* obrigado.html COMEÇO */
+
+#obrigado {
+    text-align: center;
+    font-size: 7rem;
+    padding: 1%;
+}
+
+/* obrigado.html FIM */
+
+/* index.html começo */
+
+#starter{
+    height: 96.5vh;
+    background-color: rgba(255, 255, 255, 0);
+    color: white;
+    position: relative;
+    display: flex;
+    z-index: 0;
+    margin-top: 0px;
+}
+
+#body{
+    background-color: rgb(33, 0, 54);
+}
+
+#textarea{
+    background-color: rgba(0, 0, 0, 0.514);
+    height: 50vh;
+    margin-top: 20px;
+    position: sticky;
+    z-index: 2;
+    border-radius: 5px;
+}
+
+#text{
+    color: white;
+    font-size: 12.5px;
+    height: auto;
+    width: auto;
+    padding: 5px;
+    text-align: justify;
+}
+
+.image{
+    width: 90%;
+    height: 100%;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    display: inline-block;
+    margin-left: 10%;
+    border-radius: 5px;
+}
+#the_sender{
+    background-color: rgba(0, 0, 0, 0.507);
+    color: white;
+    height: 100%;
+    width: 10%;
+    position: absolute;
+    z-index: 2;
+    display: inline-block;
+    margin-right: 0px;
+    margin-top: 0px;
+    border-radius: 5px;
+}
+
+.to_buy{
+    height: 50px;
+    width: 50px;
+    border-radius: 5px;
+    &:hover{
+
+        height: 55px;
+        width: 55px;
+    }
+}
+.a{
+    display: inline-block;
+}
+
+.barões-da-pisadinha{
+    margin-top: 0px;
+    margin-bottom: 10px;
+}
+
+/* index.html fim */

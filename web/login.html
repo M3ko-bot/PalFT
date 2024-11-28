@@ -5,6 +5,7 @@
         <title>Login</title>
         <link rel="icon" href="images/RAMZEN.png" type="image/icon type">
         <link rel="stylesheet" href="Styles.css">
+        <script src="login.js"></script>
     </head>
 
     <body class="back_color">
@@ -15,9 +16,11 @@
                 </div>
 
                 <img src="images/RAMZEN.png" alt="RAMZEN" class="login_img">
-                <input type="text" placeholder="Insira o usuário" autocorrect="off" maxlength="1023" id="inputlogin"><br>
-                <input type="password" placeholder="Insira a senha" autocorrect="off" maxlength="1023" id="inputlogin"><br>
-                <input type="submit" value="Acessar"><br>
+                <input type="text" placeholder="Insira o email" autocorrect="off" maxlength="1023" id="email"><br>
+                <input type="password" placeholder="Insira a senha" autocorrect="off" maxlength="1023" id="senha"><br>
+
+                <input type="submit" value="Acessar" onclick="submitLogin()"><br>
+
                 <a href="cadastro.html" class="register">Registrar</a>
             </div>
         </div>

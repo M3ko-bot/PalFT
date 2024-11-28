@@ -19,6 +19,75 @@ static struct tablec_ht sessions;
 
 #define SENHA "senha"
 
+char *strdup(const char *s) {
+  void *p = malloc(strlen(s) + 1);
+  if (p) strcpy(p, s);
+
+  return p;
+}
+
+struct produto {
+  char *nome;
+  char *tipo;
+  char *imagem;
+  int preco;
+  int avaliacao;
+};
+
+struct produto *get_produto_by_name(char *nome) {
+  char sql_command[1024];
+  snprintf(sql_command, sizeof(sql_command), "SELECT * FROM produtos WHERE nome='%s';", nome);
+
+  PGconn *conn = PQconnectdb(conn_login);
+  if (PQstatus(conn) != CONNECTION_OK) {
+    fprintf(stderr, "[main]: Erro ao conectar com o banco de dados: %s\n", PQerrorMessage(conn));
+    PQfinish(conn);
+
+    return NULL;
+  }
+
+  PGresult *res = PQexec(conn, sql_command);
+  if (PQresultStatus(res) != PGRES_TUPLES_OK) {
+    fprintf(stderr, "[main]: Erro ao listar produtos: %s\n", PQerrorMessage(conn));
+    PQclear(res);
+    PQfinish(conn);
+
+    return NULL;
+  }
+
+  if (PQntuples(res) == 0) {
+    PQclear(res);
+    PQfinish(conn);
+
+    return NULL;
+  }
+
+  char *pnome = PQgetvalue(res, 0, 0);
+  char *tipo = PQgetvalue(res, 0, 1);
+  char *imagem = PQgetvalue(res, 0, 2);
+  int preco = atoi(PQgetvalue(res, 0, 3));
+  int avaliacao = 5;
+
+  struct produto *produto = malloc(sizeof(struct produto));
+  produto->nome = strdup(pnome);
+  produto->tipo = strdup(tipo);
+  produto->imagem = strdup(imagem);
+  produto->preco = preco;
+  produto->avaliacao = avaliacao;
+
+  PQclear(res);
+  PQfinish(conn);
+
+  return produto;
+}
+
+void free_produto(struct produto *produto) {
+  free(produto->nome);
+  free(produto->tipo);
+  free(produto->imagem);
+  free(produto);
+}
+
 void normalize_string(char *str) {
   /* INFO: Evita brechas de segurança em relação ao SQL Injection */
   for (int i = 0; str[i] != '\0'; i++) {
@@ -382,10 +451,10 @@ void callback(struct csocket_server_client *client, int socket_index, struct htt
     char *session = malloc((16 + 1) * sizeof(char));
     frequenc_generate_session_id(session);
 
-    char time_str[32];
-    snprintf(time_str, sizeof(time_str), "%ld", time(NULL));
+    char *email_mallocd = malloc(strlen(email) + 1);
+    strcpy(email_mallocd, email);
 
-    tablec_set(&sessions, session, time_str);
+    tablec_set(&sessions, session, email_mallocd);
 
     PQclear(res);
     PQfinish(conn);
@@ -400,7 +469,7 @@ void callback(struct csocket_server_client *client, int socket_index, struct htt
         },
         {
           .key = "Content-Length",
-          .value = "32"
+          .value = "16"
         },
         {
           .key = "Access-Control-Allow-Origin",
@@ -409,7 +478,7 @@ void callback(struct csocket_server_client *client, int socket_index, struct htt
       },
       .headers_length = 3,
       .body = session,
-      .body_length = 32
+      .body_length = 16
     };
 
     httpserver_send_response(&response);
@@ -700,6 +769,8 @@ void callback(struct csocket_server_client *client, int socket_index, struct htt
     printf("[main]: Adicionando produto ao carrinho\n");
 
     if (qparser_get_query(&parse_info, "produto") == NULL) {
+      printf("[main]: Erro ao adicionar produto ao carrinho: campos faltando (produto\n");
+
       struct httpserver_response response = {
         .client = client,
         .status = 400,
@@ -718,6 +789,8 @@ void callback(struct csocket_server_client *client, int socket_index, struct htt
 
       return;
     }
+
+    printf("[main]: Produto: %s\n", qparser_get_query(&parse_info, "produto")->value);
 
     char *produto = qparser_get_query(&parse_info, "produto")->value;
 
@@ -747,8 +820,10 @@ void callback(struct csocket_server_client *client, int socket_index, struct htt
       return;
     }
 
+    printf("[main]: Adicionando produto %s ao carrinho do usuário %s\n", produto, (char *)session_info->value);
+
     char sql_command[2048];
-    snprintf(sql_command, sizeof(sql_command), "INSERT INTO carrinho (usuario, produto) VALUES ('%s', '%s');", session_info->key, produto);
+    snprintf(sql_command, sizeof(sql_command), "INSERT INTO carrinho (usuario, produto) VALUES ('%s', '%s');", (char *)session_info->value, produto);
 
     PGconn *conn = PQconnectdb(conn_login);
     if (PQstatus(conn) != CONNECTION_OK) {
@@ -875,7 +950,7 @@ void callback(struct csocket_server_client *client, int socket_index, struct htt
     }
 
     char sql_command[2048];
-    snprintf(sql_command, sizeof(sql_command), "DELETE from carrinho WHERE usuario='%s' AND produto='%s';", session_info->key, produto);
+    snprintf(sql_command, sizeof(sql_command), "DELETE from carrinho WHERE usuario='%s' AND produto='%s';", (char *)session_info->value, produto);
 
     PGconn *conn = PQconnectdb(conn_login);
     if (PQstatus(conn) != CONNECTION_OK) {
@@ -976,8 +1051,10 @@ void callback(struct csocket_server_client *client, int socket_index, struct htt
       return;
     }
 
+    printf("[main]: Listando carrinho do usuário %s\n", (char *)(char *)session_info->value);
+
     char sql_command[1024 + 33 + 1];
-    snprintf(sql_command, sizeof(sql_command), "SELECT * FROM carrinho WHERE usuario='%s';", session_info->key);
+    snprintf(sql_command, sizeof(sql_command), "SELECT * FROM carrinho WHERE usuario='%s';", (char *)session_info->value);
 
     PGconn *conn = PQconnectdb(conn_login);
     if (PQstatus(conn) != CONNECTION_OK) {
@@ -1034,9 +1111,13 @@ void callback(struct csocket_server_client *client, int socket_index, struct htt
     for (int i = 0; i < PQntuples(res); i++) {
       pjsonb_enter_object(&array, NULL);
 
-      char *produto = PQgetvalue(res, i, 1);
+      struct produto *product = get_produto_by_name(PQgetvalue(res, i, 1));
 
-      pjsonb_set_string(&array, "produto", produto, strlen(produto));
+      pjsonb_set_string(&array, "nome", product->nome, strlen(product->nome));
+      pjsonb_set_string(&array, "tipo", product->tipo, strlen(product->tipo));
+      pjsonb_set_string(&array, "imagem", product->imagem, strlen(product->imagem));
+      pjsonb_set_int(&array, "preco", product->preco);
+      pjsonb_set_int(&array, "avaliacao", 5);
 
       pjsonb_leave_object(&array);
     }

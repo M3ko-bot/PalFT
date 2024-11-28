@@ -1,3 +1,28 @@
+//
+function setCookie(name,value,days) {
+  var expires = "";
+  if (days) {
+      var date = new Date();
+      date.setTime(date.getTime() + (days*24*60*60*1000));
+      expires = "; expires=" + date.toUTCString();
+  }
+  document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+}
+function getCookie(name) {
+  var nameEQ = name + "=";
+  var ca = document.cookie.split(';');
+  for(var i=0;i < ca.length;i++) {
+      var c = ca[i];
+      while (c.charAt(0)==' ') c = c.substring(1,c.length);
+      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+  }
+  return null;
+}
+function eraseCookie(name) {   
+  document.cookie = name +'=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+}
+//
+
 function showItem(number) {
   const dataTag = document.getElementById('cache-click-state')
   const current = dataTag.getAttribute('content')
@@ -12,6 +37,25 @@ function showItem(number) {
 
   dataTag.setAttribute('content', number)
 }
+
+function addCarrinho(produto) {
+  const loginToken = getCookie('token')
+  if (!loginToken) {
+    alert('Você precisa estar logado para adicionar produtos ao carrinho')
+    return;
+  }
+
+  fetch('http://localhost:8888/api/carrinho/add?produto=' + produto + '&session=' + loginToken, {
+    method: 'POST',
+  }).then((response) => {
+    if (response.status === 204) {
+      alert('Produto adicionado ao carrinho')
+    } else {
+      alert('Erro ao adicionar produto ao carrinho')
+    }
+  })
+}
+
 
 function fetchProdutos() {
   fetch('http://localhost:8888/api/produtos/lista').then((response) => response.json()).then((data) => {
@@ -82,7 +126,7 @@ function fetchProdutos() {
         prods.appendChild(content)
 
         const img = document.createElement('img')
-        img.src = `images/${produto.tipo}/${produto.id}.png`
+        img.src = produto.imagem
         img.alt = ''
         img.classList.add('imagem_bixo')
         img.classList.add(produto.tipo)
@@ -91,7 +135,7 @@ function fetchProdutos() {
 
         const button = document.createElement('button')
         button.onclick = () => {
-          /* TODO: Adicionar produto ao carrinho */
+          addCarrinho(produto.nome)
         }
         button.classList.add('pal_button')
 

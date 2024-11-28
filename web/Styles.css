@@ -351,7 +351,7 @@ h1 {
 }
 
 #cadastroSubmit {
-    all: unset;
+    /* all: unset;
     margin-bottom: 7.5%!important;
     margin-top: 5%!important;
     background-color: transparent;
@@ -361,7 +361,7 @@ h1 {
     width: 70%; 
     align-self: center;
     color:gray;
-    text-align: center;
+    text-align: center; */
 
 }
 
@@ -434,10 +434,6 @@ input[type="radio"] {
     width: 300px;
     border-radius: 10px;
     border: white 2px solid;
-}
-
-.prods {
-    display: none;
 }
 
 .palname {
